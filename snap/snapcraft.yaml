@@ -1,0 +1,145 @@
+name: stars
+version: '2.11.26'
+summary: STARS!
+description: |
+  Stars! is a turn-based strategy, science fiction 4X game. Stars! was developed
+  by Jeff Johnson and Jeff McBride ("the Jeffs") for their own use, and
+  initially released as shareware in 1995. A retail version was later produced
+  for, and published by Empire Interactive, although the shareware version
+  continued.
+
+  It is no longer possible to purchase new Stars! serials, so under the
+  principal of abandonware keys to unlock the game are included below.
+
+  Keys:
+    Choose one key from this list. In multiplayer mode, each player must have a
+    unique serial number.
+    
+    Each key is eight (8) characters.
+
+    E4TP99BW | E2BO659A | ECN101WP | EUTBD0AV | CJWLADUE | CXG6TIQX | CXLSIXTL
+    CXR6TCXY | EPA8IRTP | GVZC2FZ5 | GX5RODYA | HAIDAAWS | HB5JYSQH | IFNKZG2R
+    JU9VWLDF | SEOMBS8E | STDAG49L | SU0ODX1T | WBXU2GIX | WCES1YRZ | WV1EFJKF
+    WV53517J | WX8Z8HLP | CJWLADUE | CXG6TIQX | CXLSIXTL | CXR6TCXY | EPA8IRTP
+    GVZC2FZ5 | GX5RODYA | HAIDAAWS | HB5JYSQH | IFNKZG2R | JU9VWLDF | SEOMBS8E
+    STDAG49L | SU0ODX1T | WBXU2GIX | WCES1YRZ | WV1EFJKF | WV53517J | WX8Z8HLP
+
+grade: stable
+confinement: strict
+architectures:
+  - build-on: amd64
+  - build-on: i386
+
+apps:
+  stars:
+    command: bin/boxit C:/WINDOWS/WIN.COM -n C:/STARS/STARS.EXE -x
+    environment:
+      INSTALL_URL: https://github.com/JamesMcGuigan/starsfaq.com/raw/master/wiki.starsautohost.org/files/DOSBoxStars.rar
+      MACHINE_TYPE: svga_s3
+      UNPACK_ARCHIVE_TO: $SNAP_USER_COMMON/.dosbox
+      DRIVE_C_DIRECTORY: $SNAP_USER_COMMON/.dosbox/DOSBoxC
+    plugs:
+      - alsa
+      - desktop
+      - desktop-legacy
+      - network
+      - network-bind
+      - opengl
+      - pulseaudio
+      - wayland
+      - x11
+
+parts:
+  # alsa:
+  #   after: [alsa-lib, alsa-plugins]
+  # alsa-lib:
+  #   configflags:
+  #   - --prefix=/usr
+  #   - --sysconfdir=/etc
+  #   - --libexec=/usr/lib
+  #   - --libdir=/usr/lib
+  #   - --localstatedir=/var
+  #   - --with-configdir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/share/alsa
+  #   - --with-plugindir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib/alsa-lib
+  #   - --disable-alisp
+  #   - --disable-aload
+  #   - --disable-python
+  #   - --disable-rawmidi
+  #   - --disable-static
+  #   - --disable-topology
+  #   - --disable-ucm
+  #   - --enable-symbolic-functions
+  # alsa-plugins:
+  #   after: [alsa-lib]
+  #   configflags:
+  #   - --prefix=/usr
+  #   - --sysconfdir=/etc
+  #   - --libexec=/usr/lib
+  #   - --libdir=/usr/lib
+  #   - --localstatedir=/var
+  #   - --disable-arcamav
+  #   - --disable-avcodec
+  #   - --disable-jack
+  #   - --disable-oss
+  #   - --disable-usbstream
+  #   - --with-plugindir=/snap/$SNAPCRAFT_PROJECT_NAME/current/usr/lib/alsa-lib
+  #   - --disable-static
+  #   - LDFLAGS=-L$SNAPCRAFT_STAGE/usr/lib
+
+  dosbox:
+    # after: [alsa]
+    plugin: dump
+    source: scripts
+    organize:
+      'boxit': bin/
+      'zenity': bin/
+    stage-packages:
+      - dosbox
+      - libgdk-pixbuf2.0-0
+      - libgl1
+      - libgtk-3-0
+      - libnotify4
+      - libsdl-image1.2
+      - libsdl-net1.2
+      - libsdl-sound1.2
+      - libsdl-ttf2.0-0
+      - libsdl1.2debian
+      - locales-all
+      - perl-base
+      - shared-mime-info
+      - unzip
+      - unrar
+      - wget
+      - yad
+    override-build: |
+      snapcraftctl build
+      rm -rf $SNAPCRAFT_PART_INSTALL/etc/init
+      rm -rf $SNAPCRAFT_PART_INSTALL/etc/init.d
+      rm -rf $SNAPCRAFT_PART_INSTALL/etc/logrotate.d
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/bin/fc-*
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/bin/gtk-*
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/lib/dconf/dconf-service
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/lib/glib-networking/glib-pacrunner
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/GConf
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/aclocal
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/apport
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/apps
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/bash-completion
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/bug
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/debhelper
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/doc
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/doc-base
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/icons/Adwaita
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/icons/Humanity*
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/icons/LoginIcons
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/icons/ubuntu-mono*
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/info
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/kde4
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/lintian
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/man
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/perl5
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/pixmaps
+      rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/pkgconfig
+      # rm -rf $SNAPCRAFT_PART_INSTALL/usr/lib/*/alsa-lib
+      # rm -rf $SNAPCRAFT_PART_INSTALL/usr/lib/*/libasound.so*
+      # rm -rf $SNAPCRAFT_PART_INSTALL/usr/share/alsa
