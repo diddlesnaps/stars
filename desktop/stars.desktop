@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Stars!
+Comment=Stars!
+Exec=stars
+Icon=/usr/share/icons/stars.png
+Categories=Game;
+Terminal=false
+StartupNotify=true
+StartupWMClass=stars.exe
+Keywords=game
