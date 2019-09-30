@@ -46,6 +46,7 @@ apps:
     command: bin/sommelier "$SNAP/Stars!-27jrc3.exe"
     desktop: usr/share/applications/desktop-file.desktop
     plugs:
+      - audio-playback
       - desktop
       - desktop-legacy
       - home
