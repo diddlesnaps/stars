@@ -34,6 +34,7 @@ architectures:
   - build-on: i386
 
 environment:
+  TRICKS: "corefonts"
   WINEPREFIX: "$SNAP_USER_COMMON/.wine"
   DLLOVERRIDES: "mscoree,mshtml=" # Prevent pop-ups about Wine Mono and Wine Gecko
   LC_ALL: "C.UTF-8"
@@ -43,7 +44,7 @@ environment:
 
 apps:
   stars:
-    command: bin/sommelier "$SNAP/Stars!-27jrc3.exe"
+    command: bin/sommelier "$SNAP/Stars-27jrc3.exe"
     desktop: usr/share/applications/desktop-file.desktop
     plugs:
       - audio-playback
@@ -54,23 +55,6 @@ apps:
       - network-bind
       - opengl
       - pulseaudio
-      - wayland
-      - x11
-  enable-dxvk:
-    command: bin/sommelier $SNAP/dxvk/setup_dxvk.sh install --without-dxgi
-    plugs:
-      - bluez
-      - desktop
-      - desktop-legacy
-      - hardware-observe
-      - home
-      - joystick
-      - network
-      - network-bind
-      - opengl
-      - process-control
-      - pulseaudio
-      - screen-inhibit-control
       - wayland
       - x11
   wineboot:
