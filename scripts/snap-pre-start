@@ -1,3 +1,0 @@
-#!/bin/sh
-
-cd "$SNAP_USER_COMMON/../../.."
